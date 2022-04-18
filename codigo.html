@@ -16,36 +16,42 @@
     <title>Bate Papo UOL</title>
 </head>
 <body>
-    <div class="topo">
-        <img src = "bate-papo-uol-imagem.jpg"/>
-        <ion-icon name="people"></ion-icon>
+    <div class="conteudo-completo">
+        <div class="topo">
+            <img src = "bate-papo-uol-imagem.jpg"/>
+            <ion-icon name="people"></ion-icon>
 
-    </div>
-    <main>
-        <ul class = "mensagens"></ul>
-
-    </main>
-    <div class="tela_de_entrada">
-        <img class = "logo" src = "bate-papo-uol-imagem.jpg">
-        <div class="informacao_de_acesso">
-            <input class = "input_login_usuario" type="text" placeholder="Digite seu nome" data-identifier = "enter-name">
-            <button class = "entrar-no-batepapo" onclick="entrarNaSala();" data-identifier="start">Entrar</button>
         </div>
-        <div class="entrando escondido">
-            <p>Entrando....</p>
+        <div class = "conteudo">
+            <h1>TESTANDO CODIGO</h1>
+            <ul class = "mensagens">
+                <li><h1>Teste</h1></li>
+                <li><h1>Teste</h1></li>
+                <li><h1>Teste</h1></li>
+            </ul>
+        </div>
+        <div class="tela_de_entrada">
+            <img class = "logo" src = "bate-papo-uol-imagem.jpg"/>
+            <div class="informacao_de_acesso">
+                <input class = "input_login_usuario" type="text" placeholder="Digite seu nome" data-identifier = "enter-name"/>
+                <button class = "entrar-no-batepapo" onclick="entrarNaSala()" data-identifier="start">Entrar</button>
+            </div>
+            <div class="entrando escondido">
+                <p>Entrando....</p>
+            </div>
+        </div>
+        
+        <div class="texto">
+            <input class="input__mensagem" type="text" placeholder="Escreva aqui..."/>
+
+            <button class="enviar-mensagem" onclick="enviaMensagem()" data-identifier="send-message">
+                <ion-icon name="paper-plane-outline"></ion-icon>
+            </button>    
         </div>
     </div>
-    
-    <div class="texto">
-        <input class="input__mensagem" type="text" placeholder="Escreva aqui...">
-
-        <button class="enviar-mensagem" onclick="enviarMensagem();" data-identifier="send-message">
-            <ion-icon name="paper-plane-outline"></ion-icon>
-        </button>    
-    </div>
-
     <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="script.js"></script>
+
 </body>
 </html>

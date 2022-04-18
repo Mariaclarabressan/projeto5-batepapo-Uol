@@ -7,7 +7,7 @@ let caixaDeMensagens = [];
 let conexaoUsuario = null
 let mostrarMensagem = null
 
-const listaMensagens = document.querySelector(".mensagens");
+let listaMensagens = document.querySelector(".mensagens");
 
 function entrarNaSala(){
     nomeUsuario = document.querySelector(".input_login_usuario").value;
@@ -71,41 +71,38 @@ function pegarMensagens(){
 function controlaAsMensagens (response){
     caixaDeMensagens = response.data;
 
-    listaMensagens.innerHTML += "";
+    listaMensagens.innerHTML = "";
 
     caixaDeMensagens.forEach(processarMensagens);
+    
 
     rolagemAutomatica();        
     
 }
 
-function processarMensagens(mensagem){
+function processarMensagens(mensagem){   
 
     if(mensagem.type == "status"){
-        listaMensagens.innerHTML =+ `
+        listaMensagens.innerHTML += `
         <li class="mensagem-status" data-identifier="message">
-            <p> <span class="horario">(${mensagem.time}) </span> <b>${mensagem.from}</b> 
-            para <b>${mensagem.to}:</b> ${mensagem.text}
+            <p> <h4 class="horario">(${mensagem.time}) </h4> <h4>${mensagem.from}</h4> 
+            para <h4>${mensagem.to}:</h4> ${mensagem.text}
             </p>
         </li>
         `
-    }
-
-    else if (mensagem.type == "message"){
+    } else if (mensagem.type == "message"){
         listaMensagens.innerHTML += `
         <li class="mensagem-aberta" data-identifier="message">
-            <p> <span class="horario">(${mensagem.time}) </span> <b>${mensagem.from}</b> 
-            para <b>${mensagem.to}:</b> ${mensagem.text}
+            <p> <h4 class="horario">(${mensagem.time}) </h4> <h4>${mensagem.from}</h4> 
+            para <h4>${mensagem.to}:</h4> ${mensagem.text}
             </p>
         </li>
         `
-    }
-
-    else if (mensagem.type = "private_message"){
+    } else if (mensagem.to == nomeUsuario){
         listaMensagens.innerHTML += `
         <li class="mensagem-reservada" data-identifier="message">
-            <p> <span class="horario">(${mensagem.time}) </span> <b>${mensagem.from}</b> 
-            para <b>${mensagem.to}:</b> ${mensagem.text}
+            <p> <h4 class="horario">(${mensagem.time}) </h4> <h4>${mensagem.from}</h4> 
+            para <h4>${mensagem.to}:</h4> ${mensagem.text}
             </p>
         </li> `
     }
@@ -113,12 +110,34 @@ function processarMensagens(mensagem){
 }
 
 function rolagemAutomatica() {
-    const ultimoLi = document.querySelector(".mensagens li:last-child");
-    ultimoLi.scrollIntoView();
-
+    const mensagem = document.querySelector(".mensagens");
+    const liFinal = mensagem.querySelector(`:nth-child(${mensagem.children.length-1})`);
+    
+    liFinal.scrollIntoView();
 }
 
+function enviaMensagem(){
+    let escreveMensagem = document.querySelector(".input__mensagem")
+    
+    let enviaMensagem = escreveMensagem.value;
+    
 
-
-
-
+    if(enviaMensagem !== ""){
+        const texto ={
+            from: nomeUsuario,
+            to: "Todos",
+            text: enviaMensagem,
+            type: "message"
+        } 
+        const promisseEnviarMensagem = axios.post(API_MENSAGENS, texto);
+        promisseEnviarMensagem.then(()=>{
+            
+        });
+    }
+}
+function botaoMensagem(){
+    window.addEventListener('keydown', function(e){
+        if(e.key === "Enter")
+        enviaMensagem();
+    })
+}
